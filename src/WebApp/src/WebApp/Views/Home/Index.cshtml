@@ -2,11 +2,13 @@
     ViewData["Title"] = "Home Page";
 }
 
-<h1>Welcome</h1>
+<h1>Welcome.</h1>
+<h2>Please, authorizate.</h2>
 
 <div>
-    <form action="/home/vkauth" method="get">
-        <input type="submit" value="Authorizate via Vk"
-               name="VkAuth" id="frm1_VkAuth" />
+    <form action="/VkAuthorization" method="get">
+        <button>
+            <img src="https://avatanplus.com/files/resources/small/57d993e5eb5e515729e9ba4c.png" width="64" height="64"/>
+        </button>
     </form>
 </div>
