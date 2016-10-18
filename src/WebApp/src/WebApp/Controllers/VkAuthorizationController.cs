@@ -11,9 +11,12 @@ namespace WebApp.Controllers
     public class VkAuthorizationController : Controller
     {
         // GET: /<controller>/
-        public IActionResult VkAuthorization()
+        public IActionResult VkAuthorization(Dictionary<string, string> parameters)
         {
-            return View();
+            if (!parameters.ContainsKey("code"))
+                return View("AuthorizationFail");
+            string code = parameters["code"];
+            return View("AuthorizationSucces");
         }
     }
 }

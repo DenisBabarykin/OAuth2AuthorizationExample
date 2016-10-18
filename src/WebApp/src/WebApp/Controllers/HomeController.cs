@@ -31,5 +31,10 @@ namespace WebApp.Controllers
         {
             return View();
         }
+
+        public IActionResult UserInfo()
+        {
+            return View();
+        }
     }
 }
