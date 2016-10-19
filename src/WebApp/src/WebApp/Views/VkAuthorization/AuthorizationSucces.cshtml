@@ -5,23 +5,28 @@
 }
 
 <h1>Authorization completed!</h1>
+<img src=@Model.PhotoUrl width="100" height="100">
 <h3>User info:</h3>
 
 <table class="table table-sm table-bordered table-hover">
     <tr>
-        <td>Id</td>
+        <td><b>Id</b></td>
         <td>@Model.Id</td>
     </tr>
     <tr>
-        <td>Name</td>
+        <td><b>Name</b></td>
         <td>@Model.Name</td>
     </tr>
     <tr>
-        <td>Surname</td>
+        <td><b>Surname</b></td>
         <td>@Model.Surname</td>
     </tr>
     <tr>
-        <td>Sex</td>
+        <td><b>Sex</b></td>
         <td>@Model.Sex</td>
+    </tr>
+    <tr>
+        <td><b>Birthdate</b></td>
+        <td>@Model.BirthDate</td>
     </tr>
 </table>

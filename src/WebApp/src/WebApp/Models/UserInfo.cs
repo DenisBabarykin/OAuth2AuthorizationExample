@@ -14,5 +14,9 @@ namespace WebApp.Models
         public string Surname { get; set; }
 
         public string Sex { get; set; }
+
+        public string BirthDate { get; set; }
+
+        public string PhotoUrl { get; set; }
     }
 }

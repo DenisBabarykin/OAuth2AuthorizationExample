@@ -32,7 +32,7 @@ namespace WebApp.Controllers
                 { "access_token", tokenResponse.access_token },
                 { "v", "5.59" },
                 { "user_ids", tokenResponse.user_id.ToString() },
-                { "fields", "sex" },
+                { "fields", "sex, bdate, photo_100" },
                 { "name_case", "nom" }
             });
 
@@ -41,7 +41,9 @@ namespace WebApp.Controllers
                 Id = userInfoResponse.response[0].id.ToString(),
                 Name = userInfoResponse.response[0].first_name,
                 Surname = userInfoResponse.response[0].last_name,
-                Sex = userInfoResponse.response[0].sex == 1 ? "Female" : "Male"
+                Sex = userInfoResponse.response[0].sex == 1 ? "Female" : "Male",
+                BirthDate = userInfoResponse.response[0].bdate,
+                PhotoUrl = userInfoResponse.response[0].photo_100
             };
 
             return View("AuthorizationSucces", userInfo);
