@@ -1,0 +1,13 @@
+﻿@model Exception
+@{
+    ViewData["Title"] = "Error info page";
+}
+<h1>Whoops! Something went wrong...</h1>
+<h3>Exception:</h3>
+<div>@Model.ToString()</div>
+<h3>Exception message:</h3>
+<div>@Model.Message</div>
+<h3>Stack trace:</h3>
+<div>@Model.StackTrace</div>
+<h3>Inner exception:</h3>
+<div>@Model.InnerException?.ToString()</div>
