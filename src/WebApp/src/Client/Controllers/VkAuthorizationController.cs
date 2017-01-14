@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using SimpleWebRequests;
 using Client.Models;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -43,34 +45,16 @@ namespace Client.Controllers
                     { "code", code }
                 });
                 string accessToken = tokenResponse.access_token;
+                string userId = tokenResponse.user_id.ToString();
                 logger.LogWarning("Access token recieved: " + accessToken);
-
-                dynamic userInfoResponse = RESTRequest.PostAsUrlEncodedWithJsonResponse("https://api.vk.com/method/users.get", new Dictionary<string, string>()
-                {
-                    { "access_token", accessToken },
-                    { "v", "5.59" },
-                    { "user_ids", tokenResponse.user_id.ToString() },
-                    { "fields", "sex, bdate, photo_100" },
-                    { "name_case", "nom" }
-                });
-                logger.LogWarning("User info recieved");
-
-                VkUserInfo userInfo = new VkUserInfo()
-                {
-                    Id = userInfoResponse.response[0].id.ToString(),
-                    Name = userInfoResponse.response[0].first_name,
-                    Surname = userInfoResponse.response[0].last_name,
-                    Sex = userInfoResponse.response[0].sex == 1 ? "Female" : "Male",
-                    BirthDate = userInfoResponse.response[0].bdate,
-                    PhotoUrl = userInfoResponse.response[0].photo_100
-                };
-
-                return View("AuthorizationSucces", userInfo);
+                HttpContext.Session.SetString("VkAccessToken", accessToken);
+                HttpContext.Session.SetString("VkUserId", userId);
+                return RedirectToAction("AuthorizationSucceeded", "Status");
             }
             catch (Exception e)
             {
                 logger.LogError(new EventId(), e, "Error");
-                return View("Exception", e);
+                return RedirectToAction("Exception", "Status", new { exception = JsonConvert.SerializeObject(e) });
             }
         }
     }
