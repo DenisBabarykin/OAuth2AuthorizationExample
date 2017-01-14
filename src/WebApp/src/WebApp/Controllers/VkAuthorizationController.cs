@@ -21,19 +21,19 @@ namespace WebApp.Controllers
         }
 
         // GET: /<controller>/
-        public IActionResult VkAuthorization(Dictionary<string, string> parameters)
+        public IActionResult Index(Dictionary<string, string> parameters)
         {
             try
             {
-                logger.LogInformation("Authorization started");
+                logger.LogWarning("Authorization started");
 
                 if (!parameters.ContainsKey("code"))
                 {
-                    logger.LogInformation("Authorization declined");
+                    logger.LogDebug("Authorization declined");
                     return View("AuthorizationFail");
                 }
                 string code = parameters["code"];
-                logger.LogInformation("Code recieved: " + code);
+                logger.LogWarning("Code recieved: " + code);
 
                 dynamic tokenResponse = RESTRequest.PostAsUrlEncodedWithJsonResponse("https://oauth.vk.com/access_token", new Dictionary<string, string>()
                 {
@@ -43,7 +43,7 @@ namespace WebApp.Controllers
                     { "code", code }
                 });
                 string accessToken = tokenResponse.access_token;
-                logger.LogInformation("Access token recieved: " + accessToken);
+                logger.LogWarning("Access token recieved: " + accessToken);
 
                 dynamic userInfoResponse = RESTRequest.PostAsUrlEncodedWithJsonResponse("https://api.vk.com/method/users.get", new Dictionary<string, string>()
                 {
@@ -53,7 +53,7 @@ namespace WebApp.Controllers
                     { "fields", "sex, bdate, photo_100" },
                     { "name_case", "nom" }
                 });
-                logger.LogInformation("User info recieved");
+                logger.LogWarning("User info recieved");
 
                 UserInfo userInfo = new UserInfo()
                 {
