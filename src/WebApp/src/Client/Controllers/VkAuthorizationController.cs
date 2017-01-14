@@ -4,12 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SimpleWebRequests;
-using WebApp.Models;
+using Client.Models;
 using Microsoft.Extensions.Logging;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace WebApp.Controllers
+namespace Client.Controllers
 {
     public class VkAuthorizationController : Controller
     {
@@ -55,7 +55,7 @@ namespace WebApp.Controllers
                 });
                 logger.LogWarning("User info recieved");
 
-                UserInfo userInfo = new UserInfo()
+                VkUserInfo userInfo = new VkUserInfo()
                 {
                     Id = userInfoResponse.response[0].id.ToString(),
                     Name = userInfoResponse.response[0].first_name,

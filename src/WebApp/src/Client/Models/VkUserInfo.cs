@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebApp.Models
+namespace Client.Models
 {
-    public class UserInfo
+    public class VkUserInfo
     {
         public string Id { get; set; }
 
