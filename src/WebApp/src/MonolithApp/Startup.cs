@@ -65,7 +65,8 @@ namespace MonolithApp
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller}/{action?}/{id?}",
+                    defaults: new { controller = "home", action = "index" });
             });
         }
     }
