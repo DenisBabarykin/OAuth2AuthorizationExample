@@ -12,11 +12,6 @@ namespace Models
         public Token()
         {
             Id = Guid.NewGuid();
-            Code = Convert.ToBase64String(Guid.NewGuid().ToByteArray());
-            AuthorizationToken = Convert.ToBase64String(Guid.NewGuid().ToByteArray());
-            RefreshToken = Convert.ToBase64String(Guid.NewGuid().ToByteArray());
-            Issued = false;
-            Refreshed = false;
         }
 
         [Key]
@@ -41,5 +36,21 @@ namespace Models
 
         public string UserId { get; set; }
         public virtual User User { get; set; }
+
+        public static Token CreateNewToken(string redirectUri, string clientId, string userId)
+        {
+            return new Token()
+            {
+                Code = Convert.ToBase64String(Guid.NewGuid().ToByteArray()),
+                AuthorizationToken = Convert.ToBase64String(Guid.NewGuid().ToByteArray()),
+                RefreshToken = Convert.ToBase64String(Guid.NewGuid().ToByteArray()),
+                AuthTokenExpiration = DateTime.Now.AddDays(1),
+                Issued = false,
+                Refreshed = false,
+                RedirectedUri = redirectUri,
+                ClientId = clientId,
+                UserId = userId
+            };
+        }
     }
 }
