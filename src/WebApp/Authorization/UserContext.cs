@@ -10,8 +10,10 @@ namespace Authorization
 {
     public class UserContext : DbContext
     {
+        public const string connectionString = @"server=(localdb)\MSSQLLocalDB;Initial Catalog=userstore.mdf;Integrated Security=True;";
+
         public UserContext()
-            : base("DbConnection")
+            : base(connectionString)
         { }
 
         public DbSet<User> Users { get; set; }

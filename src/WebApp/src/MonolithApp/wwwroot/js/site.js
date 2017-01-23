@@ -25,5 +25,7 @@ function sendAuthorizationInputs(authForm) {
             password: _password,
             client_id: _client_id,
             redirect_uri: _redirect_uri
-        });
+        })
+        .done(function (resp) { window.location.href = resp.uri; })
+        .fail(function () { alert("Incorrect input data"); });
 }

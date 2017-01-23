@@ -14,18 +14,24 @@ namespace Authorization
             bool result = true;
             using (var context = new UserContext())
             {
+                var passHash = HashWorker.GetHashString(pass);
                 result = context.Clients.Any(c => c.ClientId == clientId) 
-                    && context.Users.Any(u => u.Login == userLogin && u.PassHash == HashWorker.GetHashString(pass));
+                    && context.Users.Any(u => u.Login == userLogin && u.PassHash == passHash);
             }
             return result;
         } 
 
-        public void CreateToken(string clientId, string redirectUri, string userLogin)
+        /// <summary>Creates new token entity in db and returns it's code</summary>
+        public string CreateToken(string clientId, string redirectUri, string userLogin)
         {
+            string code = "";
             using (var context = new UserContext())
             {
-                context.Tokens.Add(Token.CreateNewToken(redirectUri, clientId, userLogin));
+                var token = context.Tokens.Add(Token.CreateNewToken(redirectUri, clientId, userLogin));
+                context.SaveChanges();
+                code = token.Code;
             }
+            return code;
         }
     }
 }

@@ -23,7 +23,6 @@ namespace MonolithApp.Controllers
         {
             try
             {
-
                 if (!parameters.ContainsKey("login") || !parameters.ContainsKey("password") || !parameters.ContainsKey("client_id") || !parameters.ContainsKey("redirect_uri"))
                     return BadRequest(new { error = "Incorrect parameters", error_description = "There are not all of needed params" });
 
@@ -34,15 +33,15 @@ namespace MonolithApp.Controllers
 
                 var authManager = new AuthorizationManager();
                 if (!authManager.CorrectCredentials(clientId, login, password))
-                    return Ok(new { error = "Incorrect credentials", error_description = "One or few credentials are wrong" });
+                    return BadRequest(new { error = "Incorrect credentials", error_description = "One or few credentials are wrong" });
 
-                authManager.CreateToken(clientId, redirectUri, login);
+                string code = authManager.CreateToken(clientId, redirectUri, login);
 
-                return Ok();
+                return Ok(new { uri = redirectUri + "?code=" + code });
             }
             catch(Exception e)
             {
-                return Ok(new { error = "Internal server error", error_description = JsonConvert.SerializeObject(e, Formatting.Indented) });
+                return BadRequest(new { error = "Internal server error", error_description = JsonConvert.SerializeObject(e, Formatting.Indented) });
             }
         }
     }
