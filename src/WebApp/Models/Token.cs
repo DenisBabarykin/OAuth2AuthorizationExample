@@ -52,5 +52,21 @@ namespace Models
                 UserId = userId
             };
         }
+
+        public static Token CreateRefreshedToken(Token previousToken)
+        {
+            return new Token()
+            {
+                Code = previousToken.Code,
+                AuthorizationToken = Convert.ToBase64String(Guid.NewGuid().ToByteArray()),
+                RefreshToken = Convert.ToBase64String(Guid.NewGuid().ToByteArray()),
+                AuthTokenExpiration = DateTime.Now.AddDays(1),
+                Issued = true,
+                Refreshed = false,
+                RedirectedUri = previousToken.RedirectedUri,
+                ClientId = previousToken.ClientId,
+                UserId = previousToken.UserId
+            };
+        }
     }
 }

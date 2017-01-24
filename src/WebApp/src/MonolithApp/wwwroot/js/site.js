@@ -19,13 +19,23 @@ function sendAuthorizationInputs(authForm) {
     var _client_id = getUrlParameter("client_id");
     var _redirect_uri = getUrlParameter("redirect_uri");
 
-    $.post("Authorization/Token",
+    $.post("Authorization/Code",
         {
             login: _login,
             password: _password,
             client_id: _client_id,
             redirect_uri: _redirect_uri
         })
-        .done(function (resp) { window.location.href = resp.uri; })
-        .fail(function () { alert("Incorrect input data"); });
+        .done(function (resp) {
+            if (resp.error === undefined)
+                window.location.href = resp.uri;
+            else 
+                alert("Error: " + resp.error + "\nError description: " + resp.error_description);
+        })
+        .fail(function () {
+            alert("Request to server failed");
+        })
+        .error(function () {
+            alert("Request to server failed");
+        });
 }
