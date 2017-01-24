@@ -31,6 +31,9 @@
       "dependencies": {
         "Authorization": {
           "target": "project"
+        },
+        "Billing": {
+          "target": "project"
         }
       }
     }
