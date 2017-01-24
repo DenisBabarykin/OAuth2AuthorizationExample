@@ -20,8 +20,7 @@
     "Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0",
     "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0",
     "Newtonsoft.Json": "9.0.1",
-    "NLog.Extensions.Logging": "1.0.0-rtm-alpha4",
-    "SimpleWebRequests": "2.1.0.1"
+    "NLog.Extensions.Logging": "1.0.0-rtm-alpha4"
   },
 
   "tools": {
@@ -31,7 +30,13 @@
   },
 
   "frameworks": {
-    "net452": { }
+    "net452": {
+      "dependencies": {
+        "SimpleWebRequests": {
+          "target": "project"
+        }
+      }
+    }
   },
 
   "buildOptions": {

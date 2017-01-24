@@ -18,6 +18,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authorization", "Authorization\Authorization.csproj", "{B790F63D-2EEB-4144-A67B-9A2676543888}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleWebRequests", "SimpleWebRequests\SimpleWebRequests.csproj", "{6E0B0D18-E412-4DCF-93DC-CA3DF4F0E4C7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,6 +42,10 @@ Global
 		{B790F63D-2EEB-4144-A67B-9A2676543888}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B790F63D-2EEB-4144-A67B-9A2676543888}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B790F63D-2EEB-4144-A67B-9A2676543888}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E0B0D18-E412-4DCF-93DC-CA3DF4F0E4C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E0B0D18-E412-4DCF-93DC-CA3DF4F0E4C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E0B0D18-E412-4DCF-93DC-CA3DF4F0E4C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E0B0D18-E412-4DCF-93DC-CA3DF4F0E4C7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
