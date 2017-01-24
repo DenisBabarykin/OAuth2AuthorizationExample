@@ -11,19 +11,17 @@ namespace Authorization
     {
         private const string salt = "HelloKitty";
 
-        public static byte[] GetHash(string inputString)
+        internal static string GetHash(string inputString)
         {
-            HashAlgorithm algorithm = MD5.Create();  //or use SHA1.Create();
-            return algorithm.ComputeHash(Encoding.UTF8.GetBytes(inputString + salt));
-        }
+            if (String.IsNullOrEmpty(inputString))
+                return String.Empty;
 
-        public static string GetHashString(string inputString)
-        {
-            StringBuilder sb = new StringBuilder();
-            foreach (byte b in GetHash(inputString + salt))
-                sb.Append(b.ToString("X2"));
-
-            return sb.ToString();
+            using (var sha = new SHA256Managed())
+            {
+                byte[] textData = System.Text.Encoding.UTF8.GetBytes(inputString + salt);
+                byte[] hash = sha.ComputeHash(textData);
+                return BitConverter.ToString(hash).Replace("-", String.Empty);
+            }
         }
     }
 }

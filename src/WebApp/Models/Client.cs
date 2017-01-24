@@ -19,6 +19,8 @@ namespace Models
 
         public string ClientSecret { get; set; }
 
+        public string DomainAddress { get; set; }
+
         public virtual ICollection<Token> Tokens { get; set; }
 
     }

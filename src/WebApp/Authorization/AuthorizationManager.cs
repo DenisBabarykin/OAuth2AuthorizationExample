@@ -13,7 +13,7 @@ namespace Authorization
         {
             using (var context = new UserContext())
             {
-                var passHash = HashWorker.GetHashString(pass);
+                var passHash = HashWorker.GetHash(pass);
                 return context.Clients.Any(c => c.ClientId == clientId) 
                     && context.Users.Any(u => u.Login == userLogin && u.PassHash == passHash);
             }
@@ -50,15 +50,51 @@ namespace Authorization
             using (var context = new UserContext())
             {
                 var token = context.Tokens.FirstOrDefault(t => t.RefreshToken == refreshToken && t.ClientId == clientId && t.Client.ClientSecret == clientSecret);
-                if (token != null && !token.Refreshed)
+                if (token != null && token.Active)
                 {
-                    token.Refreshed = true;
+                    token.Active = false;
                     var refreshedToken = context.Tokens.Add(Token.CreateRefreshedToken(token));
                     context.SaveChanges();
                     return refreshedToken;
                 }
                 else
                     return null;
+            }
+        }
+
+        public User RegisterNewUser(string login, string name, string surname, string password)
+        {
+            using (var context = new UserContext())
+            {
+                var user = context.Users.Add(new User() { Login = login, Name = name, Surname = surname, PassHash = HashWorker.GetHash(password) });
+                context.SaveChanges();
+
+                if (user != null)
+                    user.PassHash = "";
+
+                return user;
+            }
+        }
+
+        public UserInfo GetUserInfo(string authToken)
+        {
+            using (var context = new UserContext())
+            {
+                return context.Tokens.FirstOrDefault(t => t.AuthorizationToken == authToken).User.CreateUserInfo();
+            }
+        }
+
+        public TokenStatusesEnum CheckToken(string authToken)
+        {
+            using (var context = new UserContext())
+            {
+                var token = context.Tokens.FirstOrDefault(t => t.AuthorizationToken == authToken);
+                if (token == null)
+                    return TokenStatusesEnum.Invalid;
+                else if (token.Expired)
+                    return TokenStatusesEnum.Expired;
+                else
+                    return TokenStatusesEnum.Valid;
             }
         }
     }

@@ -52,6 +52,7 @@
     <Compile Include="AuthorizationManager.cs" />
     <Compile Include="HashWorker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TokenStatusesEnum.cs" />
     <Compile Include="UserContext.cs" />
   </ItemGroup>
   <ItemGroup>

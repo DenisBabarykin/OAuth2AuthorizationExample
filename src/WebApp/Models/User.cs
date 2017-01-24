@@ -17,8 +17,17 @@ namespace Models
         [Key]
         public string Login { get; set; }
 
+        public string Name { get; set; }
+
+        public string Surname { get; set; }
+
         public string PassHash { get; set; }
 
         public virtual ICollection<Token> Tokens { get; set; }
+
+        public UserInfo CreateUserInfo()
+        {
+            return new UserInfo(Login, Name, Surname);
+        }
     }
 }
