@@ -9,13 +9,8 @@ namespace Models
 {
     public class Room
     {
-        public Room()
-        {
-            Id = Guid.NewGuid();
-        }
-
         [Key]
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
         public int RoomNumber { get; set; }
 

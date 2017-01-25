@@ -35,7 +35,7 @@ namespace Authorization
         {
             using (var context = new UserContext())
             {
-                var token = context.Tokens.FirstOrDefault(t => t.Code == code && t.ClientId == clientId && t.Client.ClientSecret == clientSecret);
+                var token = context.Tokens.FirstOrDefault(t => t.Code == code && t.ClientId == clientId && t.Client.ClientSecret == clientSecret && t.Issued == false);
                 if (token != null)
                 {
                     token.Issued = true;
@@ -95,6 +95,18 @@ namespace Authorization
                     return TokenStatusesEnum.Expired;
                 else
                     return TokenStatusesEnum.Valid;
+            }
+        }
+
+        public bool CheckTokenBelonging(string authToken, string userLogin)
+        {
+            using (var context = new UserContext())
+            {
+                var token = context.Tokens.FirstOrDefault(t => t.AuthorizationToken == authToken && t.UserLogin == userLogin);
+                if (token == null)
+                    return false;
+                else
+                    return true;
             }
         }
     }

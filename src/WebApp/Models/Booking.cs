@@ -12,13 +12,13 @@ namespace Models
     {
         public Booking()
         {
-            Id = Guid.NewGuid();
+            InitId();
         }
 
         [Key]
         public Guid Id { get; set; }
 
-        public Guid RoomId { get; set; }
+        public int RoomId { get; set; }
 
         public string UserLogin { get; set; }
 
@@ -30,5 +30,11 @@ namespace Models
 
         [NotMapped]
         public Bill Bill { get; set; }
+
+        public void InitId()
+        {
+            if (Id == new Guid())
+                Id = Guid.NewGuid();
+        }
     }
 }

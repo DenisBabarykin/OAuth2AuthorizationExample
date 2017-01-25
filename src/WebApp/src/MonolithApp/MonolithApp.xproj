@@ -22,6 +22,8 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Authorization\Authorization.csproj" />
     <ProjectReference Include="..\..\Billing\Billing.csproj" />
+    <ProjectReference Include="..\..\BookingManagement\BookingManagement.csproj" />
+    <ProjectReference Include="..\..\RoomManagement\RoomManagement.csproj" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\DotNet.Web\Microsoft.DotNet.Web.targets" Condition="'$(VSToolsPath)' != ''" />
 </Project>
