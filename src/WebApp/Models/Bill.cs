@@ -11,9 +11,12 @@ namespace Models
     {
         public Bill()
         {
-            Id = Guid.NewGuid();
-            Date = DateTime.Now;
-            Price = 0.0m;
+            if (Id == new Guid() || Id == null)
+            {
+                Id = Guid.NewGuid();
+                Date = DateTime.Now;
+                Price = 0.0m;
+            }
         }
 
         [Key]
