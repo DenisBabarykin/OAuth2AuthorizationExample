@@ -26,5 +26,15 @@ namespace BookingManagement
                 return context.Bookings.Where(b => b.UserLogin == userLogin).ToList();
             }
         }
+
+        public Booking RemoveBooking(Guid id)
+        {
+            using (var context = new BookingContext())
+            {
+                var removedBooking = context.Bookings.Remove(context.Bookings.First(b => b.Id == id));
+                context.SaveChanges();
+                return removedBooking;
+            }
+        }
     }
 }

@@ -240,6 +240,34 @@ namespace SimpleWebRequests
             return Task.Run(() => PostAsJsonWithJsonResponse(url, postRequestBody));
         }
 
+        /// <summary>DELETE request to the api that responses in JSON format</summary>
+        /// <param name="url">String with url and parameters for DELETE request</param>
+        /// <returns>Dynamic object with response data</returns>
+        public static dynamic DeleteWithJsonResponse(string url)
+        {
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Accept.Clear();
+
+                HttpResponseMessage response = client.DeleteAsync(url).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    response.Content.Headers.ContentType.MediaType = "application/json";
+                    return JsonConvert.DeserializeObject(response.Content.ReadAsStringAsync().Result);
+                }
+                else
+                    throw new HttpRequestException(string.Format("Error in {0} with param url: {1}", url, MethodBase.GetCurrentMethod().Name));
+            }
+        }
+
+        /// <summary>Async DELETE request to the api that responses in JSON format</summary>
+        /// <param name="url">String with url and parameters for DELETE request</param>
+        /// <returns>Dynamic object with response data</returns>
+        public static Task<dynamic> DeleteWithJsonResponseAsync(string url)
+        {
+            return Task.Run(() => DeleteWithJsonResponse(url));
+        }
+
         #endregion
 
 
@@ -366,6 +394,34 @@ namespace SimpleWebRequests
         public static Task<T> PostAsJsonWithJsonResponseAsync<T>(string url, object postRequestBody)
         {
             return Task.Run(() => PostAsJsonWithJsonResponse<T>(url, postRequestBody));
+        }
+
+        /// <summary>DELETE request to the api that responses in JSON format</summary>
+        /// <param name="url">String with url and parameters for DELETE request</param>
+        /// <returns>Object of given generic type with response data</returns>
+        public static T DeleteWithJsonResponse<T>(string url)
+        {
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Accept.Clear();
+
+                HttpResponseMessage response = client.DeleteAsync(url).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    response.Content.Headers.ContentType.MediaType = "application/json";
+                    return JsonConvert.DeserializeObject<T>(response.Content.ReadAsStringAsync().Result);
+                }
+                else
+                    throw new HttpRequestException(string.Format("Error in {0} with param url: {1}", url, MethodBase.GetCurrentMethod().Name));
+            }
+        }
+
+        /// <summary>Async DELETE request to the api that responses in JSON format</summary>
+        /// <param name="url">String with url and parameters for DELETE request</param>
+        /// <returns>Dynamic object with response data</returns>
+        public static Task<T> DeleteWithJsonResponseAsync<T>(string url)
+        {
+            return Task.Run(() => DeleteWithJsonResponse<T>(url));
         }
 
         #endregion

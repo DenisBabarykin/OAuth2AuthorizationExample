@@ -41,6 +41,20 @@ namespace BookingServer.Controllers
                 return Json(new { error = "Internal server error", error_description = JsonConvert.SerializeObject(e, Formatting.Indented) });
             }
         }
+
+        // DELETE api/values/5
+        [HttpDelete("{bookingId}")]
+        public IActionResult Delete(Guid bookingId)
+        {
+            try
+            {
+                return Json(new BookingManager().RemoveBooking(bookingId));
+            }
+            catch (Exception e)
+            {
+                return Json(new { error = "Internal server error", error_description = JsonConvert.SerializeObject(e, Formatting.Indented) });
+            }
+        }
     }
 }
 
